@@ -7,11 +7,10 @@ title: Nathaniel Ver Steeg
 description: >-
   Nathaniel Ver Steeg is a PhD candidate at Berkeley Haas researching industrial
   organization, microeconomic theory, and market power in digital markets.
-# If you add a custom domain, change this to the new origin AND add a CNAME
-# file at the repo root containing the bare domain. Doing only the CNAME leaves
-# every page's <link rel="canonical"> pointing at the old address, which tells
-# search engines the old domain is the real one.
-url: "https://nversteeg.github.io"
+# Must stay in sync with the CNAME file at the repo root. This feeds
+# absolute_url, which builds every page's <link rel="canonical">. If the two
+# ever disagree, search engines get told the wrong address is authoritative.
+url: "https://nathanielversteeg.com"
 baseurl: ""
 
 markdown: kramdown

@@ -1,0 +1,29 @@
+# Site-wide settings. Jekyll does NOT pick up changes here while `jekyll serve`
+# is running — restart the server after editing this file.
+
+title: Nathaniel Ver Steeg
+# Not shown on the page. This is the grey snippet under your title in Google
+# results, and the preview text when someone pastes your link into Slack.
+description: >-
+  Nathaniel Ver Steeg is a PhD candidate at Berkeley Haas researching industrial
+  organization, microeconomic theory, and market power in digital markets.
+# If you add a custom domain, change this to the new origin AND add a CNAME
+# file at the repo root containing the bare domain. Doing only the CNAME leaves
+# every page's <link rel="canonical"> pointing at the old address, which tells
+# search engines the old domain is the real one.
+url: "https://nversteeg.github.io"
+baseurl: ""
+
+markdown: kramdown
+
+# REQUIRED. The github-pages gem forces `theme: jekyll-theme-primer` unless a
+# `theme` key is actually present, and Primer's assets/css/style.scss compiles
+# to the same path as our own assets/css/style.css and clobbers it. Deleting
+# this line silently restores Primer, locally and on GitHub Pages.
+theme: null
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

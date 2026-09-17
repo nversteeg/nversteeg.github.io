@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Personal academic site — the only stylesheet.
+   Mobile-first: base rules are the phone layout; the media query at the
+   bottom widens things for tablets and desktops.
+   ========================================================================== */
+
+:root {
+  /* --- Photo ------------------------------------------------------------
+     Currently assets/img/headshot-square.jpg, 600x600.
+
+     --photo-radius:  50% = circle, 6px = soft corners, 0 = sharp corners.
+     --photo-ratio:   MUST equal the image file's real aspect ratio. If it
+                      doesn't, object-fit: cover silently crops the image.
+                      Swapping in a portrait crop means changing this too. */
+  --photo-radius: 50%;
+  --photo-ratio: 1 / 1;
+  --photo-width: 240px;
+
+  /* --- Typography ------------------------------------------------------- */
+  --font-body: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --size-body: 1.0625rem;  /* 17px */
+  --line-body: 1.65;
+
+  /* --- Color ------------------------------------------------------------ */
+  --color-bg: #fdfdfc;
+  --color-text: #1c1c1a;
+  --color-muted: #6a6a64;
+  --color-link: #2f5471;
+  --color-rule: #e2e1dc;
+
+  /* --- Layout ----------------------------------------------------------- */
+  --measure: 58rem;   /* max width of the page frame (header/main/footer) */
+  --prose: 36rem;     /* max width of a run of body text, ~68 characters.
+                         Raise BOTH of these to widen the bio: the frame
+                         supplies the room, this cap decides how much of it
+                         the text is allowed to use. */
+  --gutter: 1.5rem;   /* side padding on small screens */
+}
+
+/* --- Reset / base --------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: var(--line-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; }
+
+a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible { outline: 2px solid var(--color-link); outline-offset: 3px; }
+
+/* --- Shared page frame ---------------------------------------------------- */
+
+.site-header,
+.site-main,
+.site-footer {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* --- Header + nav --------------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  flex-direction: column;     /* phone: name on top, nav underneath */
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding-block: 1.75rem 1.25rem;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.site-name {
+  font-family: var(--font-ui);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+  text-decoration: none;
+  padding: 0.5rem 0;          /* comfortable tap target, no horizontal inset */
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;            /* links wrap instead of overflowing */
+  gap: 0 1.25rem;
+  margin-left: -0.6rem;       /* cancel the first link's left padding */
+}
+
+.site-nav a {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  padding: 0.6rem;            /* ~44px tall tap target */
+}
+
+.site-nav a:hover { color: var(--color-text); }
+
+/* Current page: subtle — darker text plus a thin underline. */
+.site-nav a[aria-current="page"] {
+  color: var(--color-text);
+  box-shadow: inset 0 -1px 0 var(--color-text);
+}
+
+/* --- Main ----------------------------------------------------------------- */
+
+.site-main { padding-block: 2.5rem 3.5rem; }
+
+.page-title {
+  font-family: var(--font-ui);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 2rem;
+}
+
+.site-main h2 {
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 2.5rem 0 1.25rem;
+}
+
+.site-main h2:first-child { margin-top: 0; }
+
+/* --- Home: photo + bio ---------------------------------------------------- */
+
+.intro {
+  display: flex;
+  flex-direction: column;     /* phone: photo stacked above the bio */
+  gap: 2rem;
+}
+
+.intro-photo {
+  /* Horizontally centered while stacked on phones. Overridden to flex-start
+     in the wide-screen block below, where the axis flips to vertical. */
+  align-self: center;
+  width: var(--photo-width);
+  max-width: 100%;
+  aspect-ratio: var(--photo-ratio);
+  object-fit: cover;
+  border-radius: var(--photo-radius);
+  flex-shrink: 0;
+}
+
+/* Caps the line length. Doesn't bind beside the photo (there's less room than
+   this anyway); it stops the bio running too wide when stacked on a tablet. */
+.intro-bio { max-width: var(--prose); }
+
+.intro-bio p { margin: 0 0 1.1rem; }
+.intro-bio p:last-child { margin-bottom: 0; }
+
+/* --- Research list -------------------------------------------------------- */
+
+.paper-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.paper + .paper {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-rule);
+}
+
+/* Text is capped at the prose measure while the divider rule above still
+   spans the full frame. */
+.paper-title {
+  max-width: var(--prose);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0 0 0.4rem;
+}
+
+.paper-note {
+  max-width: var(--prose);
+  margin: 0;
+  color: var(--color-muted);
+}
+
+/* --- Footer --------------------------------------------------------------- */
+
+.site-footer {
+  padding-block: 1.5rem 2.5rem;
+  border-top: 1px solid var(--color-rule);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.site-footer p { margin: 0; }
+
+/* ==========================================================================
+   Wider screens (768px and up)
+
+   Set at 48em rather than 40em so the photo and bio only sit side by side
+   once there's room for both. Below this the layout stacks, which reads far
+   better than a cramped two-column squeeze on a small tablet.
+   ========================================================================== */
+
+@media (min-width: 48em) {
+
+  :root {
+    --gutter: 2rem;
+    /* --photo-width deliberately NOT overridden here, so each preset above
+       is a single-place change. */
+  }
+
+  /* Header: name left, nav right, on one line. */
+  .site-header {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    padding-block: 2.5rem 1.5rem;
+  }
+
+  .site-nav {
+    margin-left: 0;
+    margin-right: -0.6rem;    /* cancel the last link's right padding */
+  }
+
+  /* Home: photo left, bio right, both aligned to the top of the row. */
+  .intro {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+
+  /* Cancels the align-self: center used for the stacked phone layout, which
+     would otherwise still win over the align-items above. */
+  .intro-photo { align-self: flex-start; }
+
+  .site-main { padding-block: 4rem 5rem; }
+}

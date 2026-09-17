@@ -1,0 +1,5 @@
+# Nav links, shown top-right in the header, in this order.
+# Each entry is one line. A url can be a page or a file; the CV points
+# straight at the PDF, so there is no CV page or layout.
+- { title: "Research", url: "/research/" }
+- { title: "CV", url: "/assets/cv.pdf" }
